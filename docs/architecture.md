@@ -1,9 +1,15 @@
-queue-service
+# System Architecture
 
-restaurant-service
+## Services
+- API Gateway: Entry point
+- Queue Service: Queue & ETA logic
+- Restaurant Service: Table configuration
+- Notification Service: SMS delivery
+- Auth Service: OTP authentication
 
-notification-service
+## Communication
+- REST for synchronous calls
+- Events for async communication
 
-auth-service
-
-api-gateway
+## Database
+- PostgreSQL per service

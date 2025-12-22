@@ -1,27 +1,25 @@
 package com.qtify.queue.queueservice.domain;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 
-@Builder
+
 @Getter
 @Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="queue_entries")
-@Entity
-public class QueueEntry {
+@Builder
+@Table(name="restaurant_tables")
+public class RestaurantTable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String customerName;
-    private int partySize;
-
-    @Enumerated(EnumType.STRING)
-    private QueueStatus status;
-    private LocalDateTime createdAt;
+    private int capacity;
+    private LocalDateTime occupiedUntil;
 
 }

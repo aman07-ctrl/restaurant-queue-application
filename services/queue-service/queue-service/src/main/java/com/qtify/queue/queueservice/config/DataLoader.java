@@ -4,6 +4,7 @@ import com.qtify.queue.queueservice.domain.QueueEntry;
 import com.qtify.queue.queueservice.domain.RestaurantTable;
 import com.qtify.queue.queueservice.repository.QueueEntryRepository;
 import com.qtify.queue.queueservice.repository.RestaurantTableRepository;
+import com.qtify.queue.queueservice.service.QueueService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -15,24 +16,24 @@ import java.util.List;
 public class DataLoader implements CommandLineRunner {
 
     private final RestaurantTableRepository tableRepository;
-    private final QueueEntryRepository queueRepository;
+    private final QueueService queueService;
 
     public DataLoader(RestaurantTableRepository tableRepository,
-                      QueueEntryRepository queueRepository) {
+                      QueueService queueService) {
         this.tableRepository = tableRepository;
-        this.queueRepository = queueRepository;
+        this.queueService = queueService;
     }
 
     @Override
     public void run(String... args) {
 
 
-        if (tableRepository.count() > 0) {
-            return;
+        if (tableRepository.count() == 0) {
+            loadTables();
         }
 
-        loadTables();
-        loadQueue();
+        // Load queue ONLY via service
+
     }
 
     private void loadTables() {
@@ -56,21 +57,5 @@ public class DataLoader implements CommandLineRunner {
         tableRepository.saveAll(List.of(t1, t2, t3,t4));
     }
 
-    private void loadQueue() {
-
-        QueueEntry p1 = new QueueEntry();
-        p1.setPartySize(2);
-        p1.setCreatedAt(LocalDateTime.now());
-
-        QueueEntry p2 = new QueueEntry();
-        p2.setPartySize(4);
-        p2.setCreatedAt(LocalDateTime.now().plusSeconds(5));
-
-        QueueEntry p3 = new QueueEntry();
-        p3.setPartySize(6);
-        p3.setCreatedAt(LocalDateTime.now().plusSeconds(10));
-
-        queueRepository.saveAll(List.of(p1, p2, p3));
-    }
 }
 

@@ -21,7 +21,13 @@ public class QueueEntry {
     private int partySize;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private QueueStatus status;
     private LocalDateTime createdAt;
+
+    private Long assignedTableId;
+
+
+
 
 }

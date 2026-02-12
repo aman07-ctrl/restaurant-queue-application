@@ -9,4 +9,5 @@ import java.util.List;
 public interface QueueEntryRepository extends JpaRepository<QueueEntry, Long> {
     List<QueueEntry> findByStatus(QueueStatus status);
     List<QueueEntry> findAllByOrderByCreatedAtAsc();
+    List<QueueEntry> findByStatusOrderByCreatedAt(QueueStatus status);
 }
